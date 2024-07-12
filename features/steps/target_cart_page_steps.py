@@ -4,16 +4,12 @@ from time import sleep
 
 
 
-@given('Open target main page')
-def open_target(context):
-    context.driver.get('https://www.target.com/')
+@then('Verify cart result shown for {product}')
+def verify_cart_results(context, product):
+    actual_text = context.driver.find_element(By.CSS_SELECTOR, "[class='h-text-md h-text-grayDark h-margin-r-x2']").text
+    assert product in actual_text, f'Expected {product} not in actual {actual_text}'
 
 
-@when('Click on Cart icon')
-def click_cart(context):
-    context.driver.find_element(By.XPATH, "//div[@data-test='@web/CartIcon']").click()
-    # wait for the page with search results to load
-    sleep(6)
 
 @then('Verify “Your cart is empty” message is shown')
 def verify_cart_empty(context):
