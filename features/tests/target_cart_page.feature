@@ -8,3 +8,6 @@ Feature: Target’s product into the cart shown tests
     When Click on view cart & check out
     Then Verify cart result shown for item
 
+
+
+
