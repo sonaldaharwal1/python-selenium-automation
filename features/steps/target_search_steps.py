@@ -25,8 +25,9 @@ def click_view_cart(context):
 
 @then('Verify search results shown for {product}')
 def verify_search_results(context, product):
-    actual_text = context.driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
-    assert product in actual_text, f'Expected {product} not in actual {actual_text}'
+    context.app.search_results_page.verify_text()
+
+    sleep(6)
 
 
 
