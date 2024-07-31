@@ -10,7 +10,8 @@ def browser_init(context):
     """
     :param context: Behave context
     """
-    driver_path = ChromeDriverManager().install()
+    # driver_path = ChromeDriverManager().install()
+    driver_path = './chromedriver.exe'
     service = Service(driver_path)
     context.driver = webdriver.Chrome(service=service)
 
@@ -19,6 +20,7 @@ def browser_init(context):
     context.driver.wait = WebDriverWait(context.driver, 10)
 
     context.app = Application(context.driver)
+
 
 def before_scenario(context, scenario):
     print('\nStarted scenario: ', scenario.name)

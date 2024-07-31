@@ -3,17 +3,23 @@ from behave import given, when, then
 from time import sleep
 
 
+CART_SUMMARY = (By.XPATH, "//div[./span[contains(text(), 'subtotal')]]")
+CART_ITEM_TITLE = (By.CSS_SELECTOR, "[data-test='cartItem-title']")
+@when('Open cart page')
+def open_cart(context):
+    context.app.cart_page.open_cart()
 
-@then('Verify cart result shown for {product}')
-def verify_cart_results(context, product):
-    actual_text = context.driver.find_element(By.CSS_SELECTOR, "[class='h-text-md h-text-grayDark h-margin-r-x2']").text
-    assert product in actual_text, f'Expected {product} not in actual {actual_text}'
 
+@then('Verify cart has correct product')
+def verify_product_name(context):
+    context.app.cart_page.verify_product_name()
+
+@then('Verify cart has {amount} item(s)')
+def verify_cart_items(context,amount):
+    context.app.cart_page.verify_cart_items(amount)
 
 
 @then('Verify “Your cart is empty” message is shown')
 def verify_cart_empty(context):
-    expected_text = 'Your cart is empty'
-    actual_text = context.driver.find_element(By.CSS_SELECTOR, "div[data-test='boxEmptyMsg']").text
-    assert expected_text in actual_text, f'Expected {expected_text} ot in actual {actual_text}'
+    context.app.cart_page.verify_cart_empty()
 
